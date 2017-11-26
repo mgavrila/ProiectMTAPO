@@ -1,0 +1,23 @@
+package GUI;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+
+import javax.swing.JFrame;
+
+public class GUI {
+
+	JFrame window = new JFrame("GUI");
+	Login login = new Login();
+	
+	
+	
+	public GUI(){
+		window.add(login);
+		window.setPreferredSize(new Dimension(200,200));
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.pack();
+		window.setVisible(true);
+	}
+}
