@@ -1,0 +1,128 @@
+package Services;
+
+
+
+import org.hibernate.Session;
+import Entity.*;
+import Singleton.Singleton;
+
+public class StudentService {
+	public static void main(String[] args)
+	{
+		addStudent("Mirica", "Daniel", 123456789012L, 2);
+		//getStudentById(1);
+		/*SessionFactory factory = new Configuration()
+				.configure("hibernate.cfg.xml")
+				.addAnnotatedClass(Student.class)
+				.buildSessionFactory();
+		
+		Session session = factory.getCurrentSession();
+		
+		try
+		{
+			//create object
+			System.out.println("Creating new stud obj...");
+			Student tempStudent = new Student("Gavrila","Ion",123456789014L,1);
+			//start transaction
+			session.beginTransaction();
+			//save obj
+			System.out.println("saving the stud...");
+			session.save(tempStudent);
+			//commit
+			session.getTransaction().commit();	
+			System.out.println("Done add!");
+			
+			
+			
+			//find student primary key
+			System.out.println("Student primary key: "+tempStudent.getId_student());
+			
+			//new session and new transaction
+			session = factory.getCurrentSession();
+			session.beginTransaction();
+			
+			System.out.println("\nGetting stud with id: " +tempStudent.getId_student());
+			
+			//get info from Student string method 
+			Student myStudent = session.get(Student.class, tempStudent.getId_student());
+			System.out.println("Get complete" +myStudent);
+			
+			session.getTransaction().commit();
+			System.out.println("Done!");
+			
+		}
+		finally
+		{
+			factory.close();
+		}
+	*/
+	}
+	
+	
+	public static Student getStudentById(int id)
+	{
+		Student student = null;
+		Session session = null;
+		try
+		{
+			session = Singleton.getInstance().getNewSession();
+			student = session.get(Student.class, new Integer(id));
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			session.close();
+		}
+		
+		return student;
+	}
+	
+	public static boolean deleteStudentById(int id)
+	{
+		boolean done = false;
+		Student student = getStudentById(id);
+		Session session = null;
+		if(student != null)
+		{
+			try
+			{
+				session = session = Singleton.getInstance().getNewSession();
+				session.beginTransaction();
+				session.delete(student);
+				session.getTransaction().commit();
+				done = true;
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			finally
+			{
+				session.close();
+			}
+		}
+		return done;
+	}
+	
+	public static boolean addStudent(String nume, String prenume, long cnp, int an_studiu){
+		boolean done = false;
+		Session session = null;
+		try{
+			session = Singleton.getInstance().getNewSession();
+			session.beginTransaction();
+			Student student = new Student(nume,prenume,cnp,an_studiu);
+			session.save(student);
+			session.getTransaction().commit();
+			done = true;
+			System.out.println("Student adaugat");
+		}catch (Exception e) {
+            e.printStackTrace();           
+        } finally { 
+        	session.close();
+        }
+		return done;
+	}
+}

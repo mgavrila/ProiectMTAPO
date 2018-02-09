@@ -1,0 +1,84 @@
+package Entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
+@Table(name="student")
+public class Student implements java.io.Serializable{
+
+	@Id
+	@GenericGenerator(name="gen",strategy="increment")
+	@GeneratedValue(generator="gen")
+	@Column(name="id_student")
+	private int id_student;
+	
+	@Column(name="nume_student")
+	private String nume_student;
+	
+	@Column(name="prenume_student")
+	private String prenume_student;
+	
+	@Column(name="cnp")
+	private long cnp;
+	
+	@Column(name="an_studiu")
+	private int an_studiu;
+	
+	public Student(){
+		
+	}
+	
+	public Student(String nume_student, String prenume_student, long cnp, int an_studiu) {
+		this.nume_student = nume_student;
+		this.prenume_student = prenume_student;
+		this.cnp = cnp;
+		this.an_studiu = an_studiu;
+	}
+	
+	
+	public int getId_student() {
+		return id_student;
+	}
+	public void setId_student(int id_student) {
+		this.id_student = id_student;
+	}
+	public String getNume_student() {
+		return nume_student;
+	}
+	public void setNume_student(String nume_student) {
+		this.nume_student = nume_student;
+	}
+	public String getPrenume_student() {
+		return prenume_student;
+	}
+	public void setPrenume_student(String prenume_student) {
+		this.prenume_student = prenume_student;
+	}
+	public long getCnp() {
+		return cnp;
+	}
+	public void setCnp(long cnp) {
+		this.cnp = cnp;
+	}
+	public int getAn_studiu() {
+		return an_studiu;
+	}
+	public void setAn_studiu(int an_studiu) {
+		this.an_studiu = an_studiu;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Student [id_student=" + id_student + ", nume_student=" + nume_student + ", prenume_student="
+				+ prenume_student + ", cnp=" + cnp + ", an_studiu=" + an_studiu + "]";
+	}
+	
+}

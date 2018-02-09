@@ -1,0 +1,53 @@
+package database;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import Entity.Student;
+
+public class Database {
+	public static void main(String[] args)
+	{
+		SessionFactory factory = new Configuration()
+				.configure("hibernate.cfg.xml")
+				.addAnnotatedClass(Student.class)
+				.buildSessionFactory();
+		
+		Session session = factory.getCurrentSession();
+		
+		try
+		{
+			//create object
+			System.out.println("Creating new stud obj...");
+			Student tempStudent = new Student("Gavrila","Ion",123456789014L,1);
+			//start transaction
+			session.beginTransaction();
+			//save obj
+			System.out.println("saving the stud...");
+			session.save(tempStudent);
+			//commit
+			session.getTransaction().commit();	
+			System.out.println("Done");
+			
+			//find student primary key
+			System.out.println("Student primary key: "+tempStudent.getId_student());
+			
+			//new session and new transaction
+			session = factory.getCurrentSession();
+			session.beginTransaction();
+			
+			System.out.println("\nGetting stud with id: " +tempStudent.getId_student());
+			Student myStudent = session.get(Student.class, tempStudent.getId_student());
+			System.out.println("Get complete");
+			
+			session.getTransaction().commit();
+			System.out.println("Done!");
+			
+		}
+		finally
+		{
+			factory.close();
+		}
+	}
+}

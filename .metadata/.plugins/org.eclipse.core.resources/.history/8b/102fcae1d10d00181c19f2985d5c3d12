@@ -1,0 +1,25 @@
+package database;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class DatabaseConnection {
+
+	public static void main(String[] args)
+	{
+		String url = "jdbc:mysql://localhost:3306/mtapo";
+		String user = "root";
+		String pass = "faraparola1";
+		
+		try
+		{
+			System.out.println("Conectare...");
+			Connection conn = DriverManager.getConnection(url,user,pass);
+			System.out.println("Conectare reusita");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+}

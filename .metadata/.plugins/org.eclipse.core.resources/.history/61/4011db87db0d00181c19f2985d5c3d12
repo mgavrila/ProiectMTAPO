@@ -1,0 +1,91 @@
+package Services;
+
+
+
+import java.math.BigDecimal;
+
+import org.hibernate.Session;
+import Entity.*;
+import Singleton.Singleton;
+
+public class StudentService {
+	public static void main(String[] args)
+	{
+		//addStudent("Mirica", "Daniel", 123456789012L, 2);
+		//getStudentById(1);
+		deleteStudentById(2);
+		
+		
+		
+	}
+	
+	
+	public static Student getStudentById(int id)
+	{
+		Student student = null;
+		Session session = null;
+		try
+		{
+			session = Singleton.getInstance().getNewSession();
+			student = session.get(Student.class, new BigDecimal(id));
+			System.out.println("Studentul cautat este: "+student);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			session.close();
+		}
+		
+		return student;
+	}
+	
+	public static boolean deleteStudentById(int id)
+	{
+		boolean done = false;
+		Student student = getStudentById(id);
+		Session session = null;
+		if(student != null)
+		{
+			try
+			{
+				session = session = Singleton.getInstance().getNewSession();
+				session.beginTransaction();
+				session.delete(student);
+				session.getTransaction().commit();
+				done = true;
+				System.out.println("Student sters");
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			finally
+			{
+				session.close();
+			}
+		}
+		return done;
+	}
+	
+	public static boolean addStudent(String nume, String prenume, long cnp, int an_studiu){
+		boolean done = false;
+		Session session = null;
+		try{
+			session = Singleton.getInstance().getNewSession();
+			session.beginTransaction();
+			Student student = new Student(nume,prenume,cnp,an_studiu);
+			session.save(student);
+			session.getTransaction().commit();
+			done = true;
+			System.out.println("Student adaugat");
+		}catch (Exception e) {
+            e.printStackTrace();           
+        } finally { 
+        	session.close();
+        }
+		return done;
+	}
+}
