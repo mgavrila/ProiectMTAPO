@@ -21,13 +21,7 @@ public class Profesor {
 	@Column(name="nume_profesor")
 	private String nume_profesor;
 	
-	@Column(name="prenume_profesor")
-	private String prenume_profesor;
-
 	
-	public String getNume_profesor() {
-		return nume_profesor;
-	}
 	
 	public Profesor()
 	{
@@ -35,10 +29,9 @@ public class Profesor {
 	}
 	
 	
-	public Profesor(String nume_profesor, String prenume_profesor) {
-		super();
+	public Profesor(String nume_profesor) {
 		this.nume_profesor = nume_profesor;
-		this.prenume_profesor = prenume_profesor;
+		
 	}
 
 
@@ -57,21 +50,16 @@ public class Profesor {
 	public void setNume_profesor(String nume_profesor) {
 		this.nume_profesor = nume_profesor;
 	}
-
-	public String getPrenume_profesor() {
-		return prenume_profesor;
-	}
-
-	public void setPrenume_profesor(String prenume_profesor) {
-		this.prenume_profesor = prenume_profesor;
+	
+	public String getNume_profesor() {
+		return nume_profesor;
 	}
 
 
 
 	@Override
 	public String toString() {
-		return "Profesor [id_profesor=" + id_profesor + ", nume_profesor=" + nume_profesor + ", prenume_profesor="
-				+ prenume_profesor + "]";
+		return "Profesor [id_profesor=" + id_profesor + ", nume_profesor=" + nume_profesor + "]";
 	}
 	
 	

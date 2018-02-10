@@ -15,5 +15,6 @@
  
  <mapping class="Entity.Student"></mapping>
  <mapping class="Entity.Profesor"></mapping>
+ <mapping class="Entity.Utilizatori"></mapping>
  </session-factory>
 </hibernate-configuration>

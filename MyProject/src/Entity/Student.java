@@ -23,11 +23,6 @@ public class Student implements java.io.Serializable{
 	@Column(name="nume_student")
 	private String nume_student;
 	
-	@Column(name="prenume_student")
-	private String prenume_student;
-	
-	@Column(name="cnp")
-	private long cnp;
 	
 	@Column(name="an_studiu")
 	private int an_studiu;
@@ -36,10 +31,8 @@ public class Student implements java.io.Serializable{
 		
 	}
 	
-	public Student(String nume_student, String prenume_student, long cnp, int an_studiu) {
+	public Student(String nume_student, int an_studiu) {
 		this.nume_student = nume_student;
-		this.prenume_student = prenume_student;
-		this.cnp = cnp;
 		this.an_studiu = an_studiu;
 	}
 	
@@ -55,18 +48,7 @@ public class Student implements java.io.Serializable{
 	public void setNume_student(String nume_student) {
 		this.nume_student = nume_student;
 	}
-	public String getPrenume_student() {
-		return prenume_student;
-	}
-	public void setPrenume_student(String prenume_student) {
-		this.prenume_student = prenume_student;
-	}
-	public long getCnp() {
-		return cnp;
-	}
-	public void setCnp(long cnp) {
-		this.cnp = cnp;
-	}
+	
 	public int getAn_studiu() {
 		return an_studiu;
 	}
@@ -74,11 +56,9 @@ public class Student implements java.io.Serializable{
 		this.an_studiu = an_studiu;
 	}
 
-
 	@Override
 	public String toString() {
-		return "Student [id_student=" + id_student + ", nume_student=" + nume_student + ", prenume_student="
-				+ prenume_student + ", cnp=" + cnp + ", an_studiu=" + an_studiu + "]";
+		return "Student [id_student=" + id_student + ", nume_student=" + nume_student + ", an_studiu=" + an_studiu + "]";
 	}
 	
 }

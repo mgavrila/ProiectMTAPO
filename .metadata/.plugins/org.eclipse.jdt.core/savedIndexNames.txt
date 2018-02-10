@@ -3,9 +3,10 @@ INDEX VERSION 1.130+C:\Users\andre\Documents\GitHub\ProiectMTAPO\.metadata\.plug
 1230538165.index
 2701284951.index
 2692035760.index
-3808123788.index
 3677647603.index
 2589955883.index
+3808123788.index
+2069948784.index
 1632474868.index
 3947521672.index
 592600685.index

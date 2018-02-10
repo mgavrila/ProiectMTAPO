@@ -11,10 +11,10 @@ public class ProfesorService {
 	
 	public static void main(String[] args)
 	{
-		//addProfesor("Dumitriu", "Luminita");
+		//addProfesor("Dumitriu A Luminita");
 		//deleteAllFromTable();
 		//getAllFromProfesor();
-		deleteProfesorByID(2);
+		//deleteProfesorByID(1);
 	}
 
 	
@@ -34,13 +34,13 @@ public class ProfesorService {
 		
 	}
 	
-	public static boolean addProfesor(String nume, String prenume){
+	public static boolean addProfesor(String nume){
 		boolean done = false;
 		Session session = null;
 		try{
 			session = Singleton.getInstance().getNewSession();
 			session.beginTransaction();
-			Profesor profesor = new Profesor(nume,prenume);
+			Profesor profesor = new Profesor(nume);
 			session.save(profesor);
 			session.getTransaction().commit();
 			done = true;

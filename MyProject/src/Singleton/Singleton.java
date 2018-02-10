@@ -1,13 +1,26 @@
 package Singleton;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.StatelessSession;
 import org.hibernate.cfg.Configuration;
 
+import Entity.Profesor;
+import Entity.Student;
+import Entity.Utilizatori;
+
 public class Singleton {
 	private static Singleton singleton = null;
 	public SessionFactory sessionFactory;
+
+	
+	//User lists
+	public List<Student> ListOfStudents;
+	public List<Profesor> ListOfTeachers;
+	public List<Utilizatori> ListOfAccounts;
+	
 	
 	private Singleton(){
 		initSingleton();
@@ -44,4 +57,5 @@ public class Singleton {
 	public Session getNewSession(){
 		return sessionFactory.openSession();
 	}
+	
 }

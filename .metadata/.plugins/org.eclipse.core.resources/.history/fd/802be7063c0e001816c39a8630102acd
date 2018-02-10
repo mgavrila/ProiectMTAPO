@@ -1,0 +1,96 @@
+package Services;
+
+import java.math.BigDecimal;
+
+import org.hibernate.Session;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+
+import Entity.Profesor;
+import Entity.Utilizatori;
+import Singleton.Singleton;
+import Utils.Functions;
+import Services.EncryptService;
+
+public class UtilizatoriService 
+{
+	public static void main(String[] args)
+	{
+		addUtilizator("cm105", "faraparola1", 0);
+	}
+	
+	
+	
+	public static Utilizatori getUtilizatorByID(int id)
+	{
+		Utilizatori utilizator = null;
+		Session session = null;
+		try
+		{			
+			session = Singleton.getInstance().getNewSession();			
+			utilizator = session.get(Utilizatori.class,new BigDecimal(id));
+		}
+		catch (Exception e) 
+		{
+            e.printStackTrace();
+        }
+		finally 
+		{ 
+        	session.close();
+        }
+		return utilizator;
+		
+	}
+	
+	public static Utilizatori getUtilizatorByUsername(String username)
+	{
+		Utilizatori utilizator = null;
+		Session session = null;
+		try{			
+			session = Singleton.getInstance().getNewSession();			
+			DetachedCriteria dc = DetachedCriteria.forClass(Utilizatori.class).add(Restrictions.eq("username" , username));
+			utilizator = (Utilizatori)dc.getExecutableCriteria(session).uniqueResult();
+		}
+		catch (Exception e) 
+		{
+            e.printStackTrace();
+        }
+		finally 
+		{ 
+        	session.close();
+        }
+		return utilizator;
+		
+	}
+	
+	public static boolean addUtilizator(String username, String password,int nivel_acces){
+		boolean done = false;
+		Session session = null;
+		Utilizatori utilizator;
+		try
+		{
+			session = Singleton.getInstance().getNewSession();
+			session.beginTransaction();
+			if(Functions.stringIsNullOrEmpty(password))
+			{
+				utilizator = new Utilizatori(username,password,nivel_acces);
+			}
+			else
+			{
+				utilizator = new Utilizatori(username,EncryptService.getHashOfString(password),nivel_acces);
+			}
+			session.save(utilizator);
+			session.getTransaction().commit();
+			done = true;
+		}
+		catch (Exception e) 
+		{
+            e.printStackTrace();           
+        } finally 
+		{ 
+        	session.close();
+        }
+		return done;
+	}
+
+}

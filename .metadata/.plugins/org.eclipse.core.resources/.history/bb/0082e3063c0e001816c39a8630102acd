@@ -1,0 +1,91 @@
+package Entity;
+
+import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
+
+@Entity
+@Table(name="utilizatori")
+public class Utilizatori {
+	
+	
+	@Id
+	@GenericGenerator(name="gen",strategy="increment")
+	@GeneratedValue(generator="gen")
+	@Column(name="id_utilizator")
+	private BigDecimal id_utilizator;
+	
+	@Column(name="username")
+	private String username;
+	
+	@Column(name="password")
+	private String password;
+	
+	@Column(name="nivel_acces")
+	private int nivel_acces;
+	
+
+	public Utilizatori()
+	{
+		
+	}
+	
+
+	public Utilizatori(String username, String password, int nivel_acces) {
+		this.username = username;
+		this.password = password;
+		this.nivel_acces = nivel_acces;
+	}
+
+	public BigDecimal getId_utilizator() {
+		return id_utilizator;
+	}
+
+	public void setId_utilizator(BigDecimal id_utilizator) {
+		this.id_utilizator = id_utilizator;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public int getNivel_acces() {
+		return nivel_acces;
+	}
+
+	public void setNivel_acces(int nivel_acces) {
+		this.nivel_acces = nivel_acces;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Utilizatori [id_utilizator=" + id_utilizator + ", username=" + username + ", password=" + password
+				+ ", nivel_acces=" + nivel_acces + "]";
+	}
+
+
+	
+}

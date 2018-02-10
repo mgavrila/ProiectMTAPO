@@ -12,7 +12,7 @@ import Singleton.Singleton;
 public class StudentService {
 	public static void main(String[] args)
 	{
-		//addStudent("Ion", "Ghidon", 123456789012L, 1);
+		//addStudent("Ion A. Ghidon", 123456789012L, 1);
 		//getStudentById(1);
 		//deleteStudentById(3);
 		//getAllFromStudent();
@@ -71,13 +71,13 @@ public class StudentService {
 		return done;
 	}
 	
-	public static boolean addStudent(String nume, String prenume, long cnp, int an_studiu){
+	public static boolean addStudent(String nume, int an_studiu){
 		boolean done = false;
 		Session session = null;
 		try{
 			session = Singleton.getInstance().getNewSession();
 			session.beginTransaction();
-			Student student = new Student(nume,prenume,cnp,an_studiu);
+			Student student = new Student(nume,an_studiu);
 			session.save(student);
 			session.getTransaction().commit();
 			done = true;
