@@ -1,11 +1,14 @@
 package Services;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
+import Entity.Profesor;
+import Entity.Student;
 import Entity.Utilizatori;
 import Singleton.Singleton;
 import Utils.Functions;
@@ -66,7 +69,7 @@ public class UtilizatoriService
 		
 	}
 	
-	public static boolean addUtilizator(String username, String password,int nivel_acces){
+	public static boolean addUtilizator(String username, String password,Profesor profesor, int nivel_acces){
 		boolean done = false;
 		Session session = null;
 		Utilizatori utilizator;
@@ -76,12 +79,12 @@ public class UtilizatoriService
 			session.beginTransaction();
 			if(Functions.stringIsNullOrEmpty(password))
 			{
-				utilizator = new Utilizatori(username,password,nivel_acces);
+				utilizator = new Utilizatori(username,password,profesor,nivel_acces);
 				System.out.println("asd");
 			}
 			else
 			{
-				utilizator = new Utilizatori(username,EncryptService.getHashOfString(password),nivel_acces);
+				utilizator = new Utilizatori(username,EncryptService.getHashOfString(password),profesor,nivel_acces);
 				System.out.println("sadasf");
 			}
 			session.save(utilizator);
@@ -97,5 +100,46 @@ public class UtilizatoriService
         }
 		return done;
 	}
+
+	
+	public static boolean deleteAllFromUtilizator(){
+		Session session = null;
+		boolean done = false;
+		try{
+			session = Singleton.getInstance().getNewSession();
+			session.beginTransaction();
+			session.createQuery("delete from Utilizatori where id <> 0").executeUpdate();
+			session.getTransaction().commit();
+			done = true;
+		}catch(Exception e){
+			  e.printStackTrace();   
+		}finally{
+			session.close();
+		}
+		return done;
+	}
+	
+	
+	public static boolean generateProfessorAccount(Profesor p){
+		boolean done = false;
+		if(p != null){
+				String[] split = p.getNume_profesor().split(" ");
+				String username = split[1].charAt(0) + split[0];
+				done = addUtilizator(username, null, p, 1);			
+		}
+		return done;
+	}
+	
+	public static void generateProfessorAccounts(){
+		deleteAllFromUtilizator();
+		Functions.resetSequence("utilizator_seq");
+		List<Profesor> profesori = ProfesorService.getAllFromProfesor();
+		for(Profesor p : profesori){
+			//if(p.getNume_profesor().equals("admin"))
+				//continue;
+			generateProfessorAccount(p);
+		}	
+	}
+	
 
 }

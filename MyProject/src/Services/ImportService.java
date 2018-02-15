@@ -73,11 +73,13 @@ public class ImportService
 		
 		public static void deleteStudent()
 		{
+			Utils.Functions.resetSequence("STUDENT_SEQ");
 			StudentService.deleteAllFromTable();		
 		}
 		
 		public static void deleteProfesori()
 		{	
+			Utils.Functions.resetSequence("PROFESOR_SEQ");
 			ProfesorService.deleteAllFromTable();		
 		}
 }

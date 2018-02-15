@@ -15,6 +15,13 @@ public class ProfesorService {
 		//deleteAllFromTable();
 		//getAllFromProfesor();
 		//deleteProfesorByID(1);
+		
+		String x = "Albu I. Eduard Gabriel  ";
+		if(x != null){
+			String[] split = x.split(" ");
+			String username = split[2].charAt(0) + split[0];
+			System.out.println(username);		
+	}
 	}
 
 	

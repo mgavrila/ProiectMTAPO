@@ -34,19 +34,22 @@ public class Utilizatori {
 	@Column(name="nivel_acces")
 	private int nivel_acces;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "PROFESOR", nullable = false)
+	private Profesor profesor;
 	
 	public Utilizatori()
 	{
 		
 	}
 	
-
-	public Utilizatori(String username, String password, int nivel_acces) {
+	public Utilizatori(String username, String password, Profesor profesor, int nivel_acces) {
 		this.username = username;
 		this.password = password;
+		this.profesor = profesor;
 		this.nivel_acces = nivel_acces;
 	}
-
+	
 	public BigDecimal getId_utilizator() {
 		return id_utilizator;
 	}
@@ -79,6 +82,15 @@ public class Utilizatori {
 		this.nivel_acces = nivel_acces;
 	}
 	
+	
+	public Profesor getProfesor() {
+		return profesor;
+	}
+
+
+	public void setProfesor(Profesor profesor) {
+		this.profesor = profesor;
+	}
 
 
 	@Override
@@ -87,6 +99,4 @@ public class Utilizatori {
 				+ ", nivel_acces=" + nivel_acces + "]";
 	}
 
-
-	
 }
