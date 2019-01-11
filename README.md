@@ -1,4 +1,4 @@
-# ProiectMTAPO
-Proiect MTAPO
+# MyProject
+MyProject
 
-Tema de lucru: Alegerea temei de licenta/disertatie.
+To be continued
